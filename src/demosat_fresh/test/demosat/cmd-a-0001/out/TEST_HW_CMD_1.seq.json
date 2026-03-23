@@ -1,0 +1,9 @@
+{
+    "id": "TEST_HW_CMD_1",
+    "metadata": {},
+    "hardware_commands": [
+        {
+            "stem": "TEST_HW_CMD_1"
+        }
+    ]
+}

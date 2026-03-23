@@ -1,0 +1,13 @@
+{
+    "command_existence_rule_files": [
+        "../flightrules/demosat/command_existence_rules/hw_commands.csv",
+        "../flightrules/demosat/command_existence_rules/permanent.csv"
+    ],
+    "command_timing_rule_files": [
+        "../flightrules/demosat/command_timing_rules/permanent.csv"
+    ],
+    "command_argument_rule_files": [
+        "../flightrules/demosat/command_argument_rules/permanent.csv"
+    ],
+    "command_dictionary_path": "/dict/demosat/current/command.xml"
+}

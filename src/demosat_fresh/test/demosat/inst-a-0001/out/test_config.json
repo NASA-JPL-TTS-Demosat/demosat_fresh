@@ -1,0 +1,13 @@
+{
+    "command_existence_rule_files": [
+        "../../../../flightrules/demosat/command_existence_rules/hw_commands.csv",
+        "../../../../flightrules/demosat/command_existence_rules/permanent.csv"
+    ],
+    "command_timing_rule_files": [
+        "../../../../flightrules/demosat/command_timing_rules/permanent.csv"
+    ],
+    "command_argument_rule_files": [
+        "../../../../flightrules/demosat/command_argument_rules/permanent.csv"
+    ],
+    "command_dictionary_path": "/Users/muszynsk/projects/tt_studio/dep_tree/demosat-fresh/src/demosat_fresh/test/dictionaries/DEMOSAT_TESTING/command.xml"
+}

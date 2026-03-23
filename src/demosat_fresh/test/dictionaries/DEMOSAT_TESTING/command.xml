@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-model href="../../schemas/CommandDictionary.rnc" type="application/relax-ng-compact-syntax"?>
+<command_dictionary>
+    <header mission_name="DemoSat" version="1.2" schema_version="1.0">
+        <spacecraft_ids>
+            <spacecraft_id value="903"></spacecraft_id>
+        </spacecraft_ids>
+    </header>
+    <uplink_file_types>
+        <file_type extension="seq" file_format_spec="go here" name="SEQUENCE" id="1"></file_type>
+        <file_type file_format_spec="https://blah" extension="tsr" name="EHA_SELECT_CRIT" id="2"/>
+        <file_type extension="dat" file_format_spec="lol" name="GENERIC" id="1337"/>
+    </uplink_file_types>
+    <enum_definitions>
+        <enum_table name="HEMISPHERE">
+            <values>
+                <enum symbol="S_HEMI" numeric="0"/>
+                <enum symbol="N_HEMI" numeric="1"/>
+            </values>
+        </enum_table>
+        <enum_table name="DAY_NIGHT">
+            <values>
+                <enum symbol="DAY" numeric="0"/>
+                <enum symbol="NIGHT" numeric="1"/>
+            </values>
+        </enum_table>
+        <enum_table name="ON_OFF">
+            <values>
+                <enum symbol="ON" numeric="0"/>
+                <enum symbol="OFF" numeric="1"/>
+            </values>
+        </enum_table>
+        <enum_table name="X_OR_S">
+            <values>
+                <enum symbol="XBAND" numeric="0"/>
+                <enum symbol="SBAND" numeric="1"/>
+            </values>
+        </enum_table>
+        <enum_table name="PROD_RATES">
+            <values>
+                <enum symbol="XBAND_DL" numeric="0"/>
+                <enum symbol="SBAND_DL" numeric="1"/>
+                <enum symbol="NOMINAL_SCIENCE" numeric="2"/>
+            </values>
+        </enum_table>
+        <enum_table name="PLAYBACK_RATES">
+            <values>
+                <enum symbol="100_MBPS" numeric="0"/>
+                <enum symbol="200_MBPS" numeric="1"/>
+                <enum symbol="300_MBPS" numeric="2"/>
+                <enum symbol="400_MBPS" numeric="3"/>
+                <enum symbol="500_MBPS" numeric="4"/>
+            </values>
+        </enum_table>
+        <enum_table name="GUIDANCE_MODE">
+            <values>
+                <enum symbol="IDLE" numeric="0"/>
+                <enum symbol="NADIR_POINT" numeric="1"/>
+                <enum symbol="SUN_POINT" numeric="2"/>
+                <enum symbol="MOON_POINT" numeric="3"/>
+                <enum symbol="INERTIAL_POINT" numeric="4"/>
+                <enum symbol="GROUND_TRACK" numeric="5"/>
+            </values>
+        </enum_table>
+        <enum_table name="FILTER_WHEEL">
+            <values>
+                <enum symbol="CLEAR" numeric="0"/>
+                <enum symbol="RED" numeric="1"/>
+                <enum symbol="GREEN" numeric="2"/>
+                <enum symbol="BLUE" numeric="3"/>
+                <enum symbol="PANCHROMATIC" numeric="4"/>
+                <enum symbol="BLOCKING" numeric="5"/>
+            </values>
+        </enum_table>
+        <enum_table name="COMPRESSION_LEVEL">
+            <values>
+                <enum symbol="LOSSLESS" numeric="0"/>
+                <enum symbol="LOSSY_HIGH_QUAL" numeric="1"/>
+                <enum symbol="LOSSY_LOW_QUAL" numeric="2"/>
+            </values>
+        </enum_table>
+    </enum_definitions>
+    
+    <command_definitions>
+        <hw_command opcode="0x0001" stem="TEST_HW_CMD_1">
+            <categories>
+                <ops_category>AVS</ops_category>
+            </categories>
+            <description>This is a test HW Command (Nominal)</description>
+        </hw_command>
+        <hw_command opcode="0x0002" stem="TEST_HW_CMD_2">
+            <categories>
+                <ops_category>SEQ</ops_category>
+            </categories>
+            <description>This is a valid hardware command</description>
+        </hw_command>
+        <fsw_command opcode="0x0012" stem="RUN_SEQ" class="SEQ">
+            <arguments>
+                <var_string_arg name="seq_id" prefix_bit_length="8" max_bit_length="100">
+                    <description>Sequence ID of the sequence to be run</description>
+                </var_string_arg>
+            </arguments>
+            <categories>
+                <module>seq</module>
+                <ops_category>SEQ</ops_category>
+            </categories>
+            <description>Begin execution of a sequence in a new sequence engine</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0013" stem="DO_SCIENCE" class="FSW">
+            <arguments>
+                <enum_arg name="hemisphere" bit_length="8" enum_name="HEMISPHERE">
+                    <description>Hemisphere in which you would like to do science</description>
+                </enum_arg>
+                <enum_arg name="day_night" bit_length="8" enum_name="DAY_NIGHT">
+                    <description>Day/Night side on which you would liek to do science</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>sci</module>
+                <ops_category>SCI</ops_category>
+            </categories>
+            <description>Begin execution of a sequence in a new sequence engine</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0014" stem="STOP_SCIENCE" class="FSW">
+            <categories>
+                <module>sci</module>
+                <ops_category>SCI</ops_category>
+            </categories>
+            <description>End currently running science activity</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0015" stem="DARK_SIDE_CALIBRATION" class="FSW">
+            <categories>
+                <module>sci</module>
+                <ops_category>SCI</ops_category>
+            </categories>
+            <description>Do the dark side calibration activity</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0020" stem="ADCS_YAW" class="FSW">
+            <arguments>
+                <float_arg name="roll_angle" bit_length="32" units="degrees">
+                    <description>Angle in degrees to rotate the spacecraft</description>
+                </float_arg>
+            </arguments>
+            <categories>
+                <module>adcs</module>
+                <ops_category>ADCS</ops_category>
+            </categories>
+            <description>Rotate the spacecraft around the yaw axis</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0030" stem="TX_POWER" class="FSW">
+            <arguments>
+                <enum_arg name="on_off" bit_length="8" enum_name="ON_OFF">
+                    <description>Whether to power ON or OFF the transmitter</description>
+                </enum_arg>
+                <enum_arg name="freq_band" bit_length="8" enum_name="X_OR_S">
+                    <description>X-Band or S-Band transmitter</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>tel</module>
+                <ops_category>TEL</ops_category>
+            </categories>
+            <description>Change the power state of one of the transmitters</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0031" stem="SET_VCDU" class="FSW">
+            <arguments>
+                <integer_arg name="vcdu_number" bit_length="8">
+                    <description>VCDY number to set</description>
+                </integer_arg>
+            </arguments>
+            <categories>
+                <module>tel</module>
+                <ops_category>TEL</ops_category>
+            </categories>
+            <description>Set the VCDU number</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0040" stem="CLOSE_SCI_PRODUCTS" class="FSW">
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Close buffers for open science products</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0041" stem="FLUSH_DL_BUFFERS" class="FSW">
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Flush DL buffers</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0042" stem="SET_TLM_PROD_RATE" class="FSW">
+            <arguments>
+                <enum_arg name="prod_rate" bit_length="8" enum_name="PROD_RATES">
+                    <description>Production rate to set.</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Set telemetry production rates</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0043" stem="SET_PLAYBACK_RATE" class="FSW">
+            <arguments>
+                <enum_arg name="playback_rate" bit_length="8" enum_name="PLAYBACK_RATES">
+                    <description>Playback rate to set</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Change the current playback rate</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0044" stem="START_PLAYBACK" class="FSW">
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Start recorder playback during a comm window</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0045" stem="STOP_PLAYBACK" class="FSW">
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Stop recorder playback during a comm window</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0050" stem="SET_HEATER_DUTY" class="FSW">
+            <arguments>
+                <unsigned_arg name="heater_id" bit_length="8" units="id">
+                    <description>The ID of the heater to configure</description>
+                </unsigned_arg>
+                <unsigned_arg name="duty_cycle" bit_length="8" units="percent">
+                    <range_of_values>
+                        <include min="0" max="100"/>
+                    </range_of_values>
+                    <description>Heater duty cycle percentage (0-100)</description>
+                </unsigned_arg>
+            </arguments>
+            <categories>
+                <module>therm</module>
+                <ops_category>THERM</ops_category>
+            </categories>
+            <description>Set the duty cycle for a specific heater element</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0051" stem="UPDATE_CONFIG_KEY" class="FSW">
+            <arguments>
+                <var_string_arg name="config_key" prefix_bit_length="8" max_bit_length="256">
+                    <valid_regex>^[A-Z]{3}_[0-9]{3}$</valid_regex>
+                    <description>Configuration key matching pattern ABC_123</description>
+                </var_string_arg>
+            </arguments>
+            <categories>
+                <module>sys</module>
+                <ops_category>SYS</ops_category>
+            </categories>
+            <description>Update a system configuration key using regex validation</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="Yes"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0052" stem="UPLOAD_FILTER_TABLE" class="FSW">
+            <arguments>
+                <repeat_arg name="filter_coefficients" prefix_bit_length="8">
+                    <description>List of filter coefficients to upload</description>
+                    <repeat min="1" max="32">
+                        <arguments>
+                            <integer_arg name="index" bit_length="16" units="index">
+                                <range_of_values>
+                                    <include min="0" max="255"/>
+                                </range_of_values>
+                                <description>Table index</description>
+                            </integer_arg>
+                            <float_arg name="coeff_value" bit_length="32" units="N/A">
+                                <range_of_values>
+                                    <include min="-1.0" max="1.0"/>
+                                </range_of_values>
+                                <description>Normalized coefficient value</description>
+                            </float_arg>
+                        </arguments>
+                    </repeat>
+                </repeat_arg>
+            </arguments>
+            <categories>
+                <module>adcs</module>
+                <ops_category>ADCS</ops_category>
+            </categories>
+            <description>Upload a table of filter coefficients using repeated arguments</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="Yes"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+        <fsw_command opcode="0x0053" stem="FORCE_HIGH_SPEED_DUMP" class="FSW">
+            <arguments>
+                <enum_arg name="dump_rate" bit_length="8" enum_name="PLAYBACK_RATES">
+                    <range_of_values>
+                        <include min="400_MBPS" max="500_MBPS"/>
+                    </range_of_values>
+                    <description>Restricted to high speed options only</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>dm</module>
+                <ops_category>DM</ops_category>
+            </categories>
+            <description>Force a data dump at high speeds only (subset of enum)</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0060" stem="SET_GUIDANCE_MODE" class="FSW">
+            <arguments>
+                <enum_arg name="mode" bit_length="8" enum_name="GUIDANCE_MODE">
+                    <description>The specific guidance law to engage</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>adcs</module>
+                <ops_category>ADCS</ops_category>
+            </categories>
+            <description>Switch the ADCS guidance control mode</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0061" stem="TRACK_GROUND_TARGET" class="FSW">
+            <arguments>
+                <float_arg name="target_lat" bit_length="32" units="degrees">
+                    <range_of_values>
+                        <include min="-90.0" max="90.0"/>
+                    </range_of_values>
+                    <description>Geodetic latitude of target</description>
+                </float_arg>
+                <float_arg name="target_lon" bit_length="32" units="degrees">
+                    <range_of_values>
+                        <include min="-180.0" max="180.0"/>
+                    </range_of_values>
+                    <description>Geodetic longitude of target</description>
+                </float_arg>
+                <float_arg name="target_alt" bit_length="32" units="km">
+                    <range_of_values>
+                        <include min="0.0" max="100.0"/>
+                    </range_of_values>
+                    <description>Target altitude above ellipsoid</description>
+                </float_arg>
+            </arguments>
+            <categories>
+                <module>adcs</module>
+                <ops_category>ADCS</ops_category>
+            </categories>
+            <description>Set ADCS reference to point payload at specific ground coordinates</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="Yes"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0062" stem="TRACK_INERTIAL_TARGET" class="FSW">
+            <arguments>
+                <float_arg name="right_ascension" bit_length="32" units="degrees">
+                    <range_of_values>
+                        <include min="0.0" max="360.0"/>
+                    </range_of_values>
+                    <description>J2000 Right Ascension</description>
+                </float_arg>
+                <float_arg name="declination" bit_length="32" units="degrees">
+                    <range_of_values>
+                        <include min="-90.0" max="90.0"/>
+                    </range_of_values>
+                    <description>J2000 Declination</description>
+                </float_arg>
+            </arguments>
+            <categories>
+                <module>adcs</module>
+                <ops_category>ADCS</ops_category>
+            </categories>
+            <description>Point spacecraft at a specific inertial coordinate (Star/Planet)</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0070" stem="CONFIG_INSTRUMENT" class="FSW">
+            <arguments>
+                <enum_arg name="filter_selection" bit_length="8" enum_name="FILTER_WHEEL">
+                    <description>Select optical filter</description>
+                </enum_arg>
+                <unsigned_arg name="exposure_ms" bit_length="16" units="ms">
+                    <range_of_values>
+                        <include min="10" max="5000"/>
+                    </range_of_values>
+                    <description>Integration time in milliseconds</description>
+                </unsigned_arg>
+                <enum_arg name="compression" bit_length="8" enum_name="COMPRESSION_LEVEL">
+                    <description>Image compression algorithm to apply</description>
+                </enum_arg>
+            </arguments>
+            <categories>
+                <module>inst</module>
+                <ops_category>PAYLOAD</ops_category>
+            </categories>
+            <description>Configure instrument parameters prior to imaging</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="No"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0071" stem="TAKE_IMAGE" class="FSW">
+            <arguments>
+                <var_string_arg name="image_tag" prefix_bit_length="8" max_bit_length="64">
+                    <valid_regex>^[A-Z0-9_]+$</valid_regex>
+                    <description>Tag to assign to the image metadata for cataloging</description>
+                </var_string_arg>
+            </arguments>
+            <categories>
+                <module>inst</module>
+                <ops_category>PAYLOAD</ops_category>
+            </categories>
+            <description>Trigger an image capture with the current configuration</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="No"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="Yes"/>
+            </restricted_modes>
+        </fsw_command>
+
+        <fsw_command opcode="0x0080" stem="UPLOAD_EPHEMERIS" class="FSW">
+            <arguments>
+                <repeat_arg name="state_vectors" prefix_bit_length="8">
+                    <description>List of orbit state vectors</description>
+                    <repeat min="1" max="10">
+                        <arguments>
+                            <float_arg name="timestamp" bit_length="64" units="sec">
+                                <description>GPS seconds</description>
+                            </float_arg>
+                            <float_arg name="pos_x" bit_length="32" units="km">
+                                <description>ECI Position X</description>
+                            </float_arg>
+                            <float_arg name="pos_y" bit_length="32" units="km">
+                                <description>ECI Position Y</description>
+                            </float_arg>
+                            <float_arg name="pos_z" bit_length="32" units="km">
+                                <description>ECI Position Z</description>
+                            </float_arg>
+                            <float_arg name="vel_x" bit_length="32" units="km/s">
+                                <description>ECI Velocity X</description>
+                            </float_arg>
+                            <float_arg name="vel_y" bit_length="32" units="km/s">
+                                <description>ECI Velocity Y</description>
+                            </float_arg>
+                            <float_arg name="vel_z" bit_length="32" units="km/s">
+                                <description>ECI Velocity Z</description>
+                            </float_arg>
+                        </arguments>
+                    </repeat>
+                </repeat_arg>
+            </arguments>
+            <categories>
+                <module>gnc</module>
+                <ops_category>NAV</ops_category>
+            </categories>
+            <description>Upload a batch of state vectors for onboard propagation</description>
+            <completion>YES</completion>
+            <fsw_specification custom_validation_required="Yes"/>
+            <restricted_modes>
+                <prime_string_restriction prime_string_only="Yes"/>
+            </restricted_modes>
+        </fsw_command>
+
+    </command_definitions>
+</command_dictionary>

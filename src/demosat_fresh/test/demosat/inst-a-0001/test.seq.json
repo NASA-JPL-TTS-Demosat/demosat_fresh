@@ -1,0 +1,35 @@
+{
+    "id": "test",
+    "metadata": {},
+    "steps": [
+        {
+            "args": [
+                {
+                    "type": "number",
+                    "value": 1,
+                    "name": "new_sclk_time"
+                },
+                {
+                    "type": "number",
+                    "value": 0,
+                    "name": "trigger_time"
+                }
+            ],
+            "stem": "CONFIG_INSTRUMENT",
+            "time": {
+                "tag": "00:00:01",
+                "type": "COMMAND_RELATIVE"
+            },
+            "type": "command"
+        },
+        {
+            "args": [],
+            "stem": "CMD_NO_OP",
+            "time": {
+                "tag": "00:00:01",
+                "type": "COMMAND_RELATIVE"
+            },
+            "type": "command"
+        }
+    ]
+}

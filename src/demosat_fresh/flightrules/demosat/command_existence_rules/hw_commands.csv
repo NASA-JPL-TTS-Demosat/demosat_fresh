@@ -1,0 +1,3 @@
+FR_ID,FR_Version,Alert_Level,Command_Stem,Message
+CMD-A-0001,10.4.0,VIOLATED,TEST_HW_CMD_1,Do not send hardward commands in flight.
+CMD-A-0001,10.4.0,VIOLATED,TEST_HW_CMD_2,Do not send hardward commands in flight.

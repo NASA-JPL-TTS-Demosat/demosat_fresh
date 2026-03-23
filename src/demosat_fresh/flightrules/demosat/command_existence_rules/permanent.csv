@@ -1,0 +1,2 @@
+FR_ID,FR_Version,Alert_Level,Command_Stem,Message
+INST-A-0001,10.4.0.0,VIOLATED,CONFIG_INSTRUMENT,Do not send the CONFIG_INSTRUMENT command.

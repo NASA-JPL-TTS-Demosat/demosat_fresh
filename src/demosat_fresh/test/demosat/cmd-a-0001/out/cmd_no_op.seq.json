@@ -1,0 +1,15 @@
+{
+    "id": "test",
+    "metadata": {},
+    "steps": [
+        {
+            "args": [],
+            "stem": "CMD_NO_OP",
+            "time": {
+                "tag": "00:00:01",
+                "type": "COMMAND_RELATIVE"
+            },
+            "type": "command"
+        }
+    ]
+}

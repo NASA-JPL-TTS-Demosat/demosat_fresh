@@ -1,0 +1,10 @@
+{
+    "id": "test",
+    "metadata": {},
+    "hardware_commands": [
+        {
+            "stem": "CMD_GOES_HERE"
+        }
+    ]
+}
+
